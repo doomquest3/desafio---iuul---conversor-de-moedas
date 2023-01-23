@@ -1,0 +1,9 @@
+
+/*============ NAV BAR ============*/
+
+/*nav-bar - alinhando texto e icone*/
+.nav-link{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
