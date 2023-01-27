@@ -1,0 +1,45 @@
+/*Estilo do angular material*/
+.mat-mdc-list-item-icon {
+  color: rgba(0, 0, 0, 0.54);
+
+}
+
+/*Container da lista*/
+.container{
+  width: 75%;
+  height: 80%;
+  max-height: 80%;
+
+  margin: 1rem auto;
+  padding: 1rem;
+
+  border: 0.1rem solid black;
+
+  overflow-y: scroll;
+
+}
+
+/*Título da lista de moedas*/
+.title{
+  text-align: center;
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 400;
+
+}
+
+/*Lista de botões */
+.lista-botao{
+  height: 3.5rem;
+  display: flex;
+
+  justify-content: center;
+
+}
+
+/*Botões da lista*/
+.lista-botao button{
+  border: none;
+  margin: 0 0.2rem;
+
+}

@@ -1,0 +1,45 @@
+<mat-list class="container">
+  <div mat-subheader class="title">Lista de moedas</div>
+
+    <!--lista de botões-->
+    <div class="lista-botao">
+      <!--Angular botão-->
+      <button mat-button [matMenuTriggerFor]="menu">Icones</button>
+      <mat-menu #menu="matMenu"><!--Listar simbolos-->
+        <button mat-menu-item><mat-icon>folder</mat-icon></button>
+        <button mat-menu-item><mat-icon>folder</mat-icon></button>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="ordem">Ordem</button>
+      <mat-menu #ordem="matMenu"><!--Listar simbolos-->
+        <button mat-menu-item>Crescente</button>
+        <button mat-menu-item>Decrescente</button>
+      </mat-menu>
+
+      <!--Texto de descrição da moeda-->
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Digite o nome da moeda</mat-label>
+          <input matInput placeholder="Ex: iene">
+        </mat-form-field>
+      </form>
+
+      <!--Paginação na quantidade de moedas a serem exibidas-->
+      <mat-paginator [length]="100"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25]"
+              aria-label="Select page">
+      </mat-paginator>
+
+    </div>
+
+  <!--listagem de moedas-->
+  <mat-list-item >
+    <!--Uma moeda qualquer-->
+    <mat-icon matListItemIcon>folder</mat-icon><!--Ícone da moeda-->
+    <div matListItemTitle>nome da moeda</div><!--Nome da moeda-->
+
+
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>
