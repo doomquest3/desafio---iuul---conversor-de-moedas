@@ -19,8 +19,8 @@
       <!--Texto de descrição da moeda-->
       <form class="example-form">
         <mat-form-field class="example-full-width">
-          <mat-label>Digite o nome da moeda</mat-label>
-          <input matInput placeholder="Ex: iene">
+          <mat-label>Descrição da moeda</mat-label>
+          <input matInput placeholder="Ex: Japanese Yen">
         </mat-form-field>
       </form>
 
@@ -33,13 +33,16 @@
 
     </div>
 
-  <!--listagem de moedas-->
-  <mat-list-item >
-    <!--Uma moeda qualquer-->
-    <mat-icon matListItemIcon>folder</mat-icon><!--Ícone da moeda-->
-    <div matListItemTitle>nome da moeda</div><!--Nome da moeda-->
+  <ng-container *ngFor="let item of listaMoedas">
+    <!--listagem de moedas-->
+    <mat-list-item class="list" >
+      <!--Uma moeda qualquer-->
+      <mat-icon matListItemIcon></mat-icon><!--Ícone da moeda-->
+      <div matListItemTitle>{{ item.code }}</div><!--Código da moeda-->
+      <div matListItemTitle>{{ item.description }}</div><!--Nome da moeda-->
 
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
 
-  </mat-list-item>
-  <mat-divider></mat-divider>
 </mat-list>
