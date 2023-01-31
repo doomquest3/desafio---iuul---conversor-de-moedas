@@ -19,9 +19,8 @@ export class MoedasService {
   constructor(private http: HttpClient) { }
 
   //método para requisitar moedas para listar as moedas
-  public listarMoedas():Observable<listaMoedas>{
-    return this.http.get<listaMoedas>(this.apiUrl)
-
+  public listarMoedas(): Observable<any>{
+     return this.http.get<listaMoedas>(this.apiUrl);
 
   }
 

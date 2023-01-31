@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { moedaDescribe } from 'src/app/models/moedaDescribe.model';
 import { MoedasService } from 'src/app/services/moedas.service';
 
@@ -9,7 +12,13 @@ import { MoedasService } from 'src/app/services/moedas.service';
 })
 export class ListaMoedasComponent implements OnInit {
 
-  listaMoedas?: moedaDescribe[];
+  listaMoedas: moedaDescribe[] = [];
+  displayedColumns: string[] = ['code', 'description'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild('paginator') paginator!: MatPaginator;
+  @ViewChild(MatSort) matSort!: MatSort;
+
 
   constructor(
     private moedaService: MoedasService
@@ -23,11 +32,20 @@ export class ListaMoedasComponent implements OnInit {
 
   }
 
+  //Listagem de moedas
   getLista(){
     try {
+      //Requisitar lista de moedas da API.
       this.moedaService.listarMoedas().subscribe((moedas)=>{
-        this.listaMoedas = moedas.symbols;
-        console.log(this.listaMoedas)
+        //Converter formatação da lista para permitir amostragem de dados na tela.
+        this.listaMoedas = Object.values(moedas.symbols);
+        console.log(this.listaMoedas)// <---Verificar se moedas está sendo pega na API.
+        //Criação de dados para tabela e paginação.
+        this.dataSource = new MatTableDataSource(this.listaMoedas);
+        //Aplicando propriedade para paginar a tela.
+        this.dataSource.paginator = this.paginator;
+        //Aplicando propriedade para alterar ordem de exibição.
+        this.dataSource.sort = this.matSort;
 
       });
 
@@ -37,5 +55,11 @@ export class ListaMoedasComponent implements OnInit {
     }
 
   };
+
+  //Filtrar pesquisa
+  filtroDado($event: any){
+    this.dataSource.filter = $event.target.value;
+
+  }
 
 }

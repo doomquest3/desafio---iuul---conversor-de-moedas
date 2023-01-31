@@ -1,5 +1,5 @@
-export class moedaDescribe{
-    description?: string;
-    code?: string;
+export interface moedaDescribe{
+    description: string;
+    code: string;
 
 }

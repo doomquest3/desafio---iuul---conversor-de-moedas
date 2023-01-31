@@ -17,7 +17,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     MatInputModule,
     MatPaginatorModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
+    MatSortModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
