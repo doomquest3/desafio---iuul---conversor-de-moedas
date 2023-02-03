@@ -1,0 +1,50 @@
+<div class="container">
+  <h1 class="titulo">Conversor de moedas</h1>
+
+  <section>
+    <form [formGroup]="myGroup" #formDir="ngForm">
+      <mat-form-field appearance="fill">
+        <mat-select required formControlName="code1" >
+          <mat-option
+                      value="null"
+                      *ngFor="let item of listaMoedas"
+                      [value]="item.code"
+                      required>
+                      {{item.code}}
+          </mat-option>
+        </mat-select>
+        <mat-label>Escolha a moeda originaria</mat-label>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-select matInput required formControlName="code2" >
+          <mat-option value="null"
+                      *ngFor="let item of listaMoedas"
+                      [value]="item.code"
+                      required>
+                      {{item.code}}
+          </mat-option>
+        </mat-select>
+        <mat-label>Escolha moeda para converter</mat-label>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <input
+          matInput placeholder="Digite o valor a ser convertido"
+          formControlName="valor"
+          required>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="getConvert()">Converter</button>
+    </form>
+
+    <div class="resultado">
+      <p>Valor a ser convertido: {{this.valor}}</p>
+      <p>Valor para conversão: {{this.conversor}}</p>
+      <p>Data da conversão: {{this.data}}</p>
+      <p>Resultado da conversão: {{this.resultado}}</p>
+
+    </div>
+  </section>
+
+</div>

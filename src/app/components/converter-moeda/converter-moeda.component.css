@@ -1,0 +1,89 @@
+/*Container do conversor de moedas*/
+.container{
+  width: 75%;
+  height: 85%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 1rem auto;
+  border: 0.1rem solid black;
+
+}
+
+/*Secção interna para conversão de valores*/
+.container section{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+}
+
+/*Titul do conversor de moedas*/
+.titulo{
+  font-size: 2rem;
+  font-weight: 400;
+  border-bottom: 0.15rem solid rgb(54, 54, 54);
+  margin-bottom: 1.5rem;
+
+}
+
+
+/*Formulário para conversão*/
+.container form{
+  width: 45%;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid black;
+  padding: 1rem;
+
+}
+
+/*Resultado da conversão*/
+.resultado{
+  width: 45%;
+  height: 20rem;
+  display: grid;
+  grid-template-columns: auto;
+  border: 0.1rem solid black;
+  padding: 1rem;
+
+}
+
+
+/*======================== RESPONSIVIDADE ========================*/
+
+@media (max-width: 768px) {
+
+  /*Ajustando tamanho do container principal*/
+  .container{
+    height: 46rem;
+
+  }
+
+  /*Ajustar seção para responsividade*/
+  .container section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }
+
+  /*Ajustar formulário*/
+  .container form{
+    width: 75%;
+
+  }
+
+  /*Ajustar saida de dados*/
+  .resultado{
+    width: 75%;
+
+  }
+
+}
