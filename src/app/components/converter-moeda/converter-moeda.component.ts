@@ -1,3 +1,4 @@
+import { _isNumberValue } from '@angular/cdk/coercion';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
 import { converter } from 'src/app/models/converter.model';
@@ -53,6 +54,30 @@ export class ConverterMoedaComponent {
 
   }
 
+  //Método para validar número
+  validar(){
+    //Verifica se é um número.
+    if(_isNumberValue(Number(this.myGroup.value.valor))){
+
+      //Verifica se esse número é maior que zero.
+      if(Number(this.myGroup.value.valor) > 0){
+        return true
+
+      }else{
+        //Número é menor ou igual a zero.
+        alert("Número deve ser maior que zero!");
+        return false
+
+      }
+
+    }else{
+      //Não é um número
+      alert("Não é um número, por favor, escreva um número!");
+      return false
+
+    }
+  }
+
   //Método para conversão da moeda - tagA: string, tagB: string, valor: number
   getConvert(){
     console.log(`Este é o formulário que está enviando: ${this.myGroup.value}`)
@@ -60,26 +85,31 @@ export class ConverterMoedaComponent {
     let tagA = this.myGroup.value.code1;
     //Tag da moeda para conversão.
     let tagB = this.myGroup.value.code2;
-    //valor da conversão.
-    this.valor = Number(this.myGroup.value.valor);
 
-    //Enviando requisição para service.
-    this.moedaService.converterMoedas(tagA,tagB).subscribe((response)=>{
-      //data da conversão
-      this.data = (response.date)
+    if(this.validar()){
+      //valor da conversão.
+      this.valor = Number(this.myGroup.value.valor);
 
-      // valor para conversão
-      this.conversor = Object.values(response.info)
+      //Enviando requisição para service.
+      this.moedaService.converterMoedas(tagA,tagB).subscribe((response)=>{
+        //data da conversão
+        this.data = (response.date)
 
-      this.resultado = this.valor * Number(this.conversor);
-      console.log("quantidade da moeda"+(this.valor));
+        // valor para conversão
+        this.conversor = Object.values(response.info)
 
-      //valor da conversão
-      console.log(`Você recebeu: ${this.conversor}`);
+        //Valor enviado pela pessoa.
+        console.log("quantidade da moeda"+(this.valor));
 
-    });
+        //valor da conversão
+        console.log(`Você recebeu: ${this.conversor}`);
 
+        this.resultado = this.valor * Number(this.conversor);
 
+      });
+    }else{
+      alert(`Por favor, refaça o envio do número.`)
+    }
 
   }
 

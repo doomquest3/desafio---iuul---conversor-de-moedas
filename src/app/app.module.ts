@@ -26,6 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { HistConversaoComponent } from './components/hist-conversao/hist-conversao.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatButtonModule } from '@angular/material/button';
     PagPrincipalComponent,
     ListaMoedasComponent,
     ConverterMoedaComponent,
+    HistConversaoComponent,
 
   ],
   imports: [
