@@ -6,7 +6,7 @@
 
 /*Container da lista*/
 .container{
-  width: 75%;
+  width: 95%;
   height: 85%;
 
   margin: 1rem auto;
@@ -14,7 +14,7 @@
 
   border: 0.1rem solid black;
 
-  overflow-y: scroll;
+
 
 }
 
@@ -44,3 +44,4 @@
   margin: 0 0.2rem;
 
 }
+

@@ -4,6 +4,7 @@ import { FormControl, FormGroup} from '@angular/forms';
 import { converter } from 'src/app/models/converter.model';
 import { moedaDescribe } from 'src/app/models/moedaDescribe.model';
 import { MoedasService } from 'src/app/services/moedas.service';
+import { RegConvertService } from 'src/app/services/reg-convert.service';
 
 @Component({
   selector: 'app-converter-moeda',
@@ -23,7 +24,8 @@ export class ConverterMoedaComponent {
   conversor: converter[] =[];
 
   //Construtor
-  constructor(private moedaService: MoedasService){
+  constructor(private moedaService: MoedasService,
+              private armazenar: RegConvertService){
     this.myGroup = new FormGroup({
       code1:  new FormControl(''),
       code2: new FormControl(''),
@@ -43,7 +45,7 @@ export class ConverterMoedaComponent {
       this.moedaService.listarMoedas().subscribe((moedas)=>{
         //Converter formatação da lista para permitir amostragem de dados na tela.
         this.listaMoedas = Object.values(moedas.symbols);
-        console.log(this.listaMoedas)// <---Verificar se moedas está sendo pega na API.
+        //console.log(this.listaMoedas)// <---Verificar se moedas está sendo pega na API.
 
       });
 
@@ -80,35 +82,39 @@ export class ConverterMoedaComponent {
 
   //Método para conversão da moeda - tagA: string, tagB: string, valor: number
   getConvert(){
-    console.log(`Este é o formulário que está enviando: ${this.myGroup.value}`)
+    //console.log(`Este é o formulário que está enviando: ${this.myGroup.value}`)
     //Tag da moeda original.
     let tagA = this.myGroup.value.code1;
     //Tag da moeda para conversão.
     let tagB = this.myGroup.value.code2;
 
     if(this.validar()){
-      //valor da conversão.
+      //Valor da conversão.
       this.valor = Number(this.myGroup.value.valor);
 
       //Enviando requisição para service.
       this.moedaService.converterMoedas(tagA,tagB).subscribe((response)=>{
-        //data da conversão
+        //Data da conversão
         this.data = (response.date)
 
-        // valor para conversão
+        //Valor para conversão
         this.conversor = Object.values(response.info)
 
         //Valor enviado pela pessoa.
-        console.log("quantidade da moeda"+(this.valor));
+        //console.log("quantidade da moeda"+(this.valor));
 
-        //valor da conversão
-        console.log(`Você recebeu: ${this.conversor}`);
+        //Valor da conversão
+        //console.log(`Você recebeu: ${this.conversor}`);
 
         this.resultado = this.valor * Number(this.conversor);
 
+        //Enviar para armazenar valores no localStorage.
+        this.armazenar.setDados(this.valor, tagA, this.resultado, tagB, Number(this.conversor));
+
       });
     }else{
-      alert(`Por favor, refaça o envio do número.`)
+      alert(`Por favor, refaça o envio do número.`);
+
     }
 
   }
