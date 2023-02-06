@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { from, Observable, Observer, of } from 'rxjs';
 import { historico } from '../models/historico.model';
 
 @Injectable({
@@ -8,17 +9,13 @@ import { historico } from '../models/historico.model';
 export class RegConvertService {
 
   //Objeto para armazenagem na local storage
-  private ArrayObj:any[] = [];
+  private ArrayObj!: Observable<historico>;
 
-  private obsArray: Array<historico> = [];
-
+  private ArrayHistorico:Array<historico> = [];
+  //Variável para recebimento de dados.
   private objHistorico: historico = new historico;
 
-  constructor() {}
-
-  //Gerar chaves
-  private gerarChave(){
-    return String(localStorage.length + 1);
+  constructor() {
 
   }
 
@@ -46,36 +43,55 @@ export class RegConvertService {
     this.objHistorico.resultado = String(resultado);
     this.objHistorico.taxa = String(taxa);
 
-    //Armazenar no localStorage.
-    localStorage.setItem(this.gerarChave(), JSON.stringify(this.objHistorico));
-    console.log(`Armazenamento concluído`+this.objHistorico)
+    //Verifica se existe a chave do localStorage;
+    let cond = this.verificaStorage();
+
+    if(cond){
+      //Recupera o Array salvo na chave histórico
+      this.ArrayHistorico = JSON.parse(localStorage.getItem("historico") || '');
+
+      if(this.ArrayHistorico.indexOf(this.objHistorico) == -1){
+      this.ArrayHistorico.push(this.objHistorico);
+
+      //Armazenar no localStorage.
+      this.ArrayHistorico.push(this.objHistorico);
+      localStorage.setItem('historico', JSON.stringify(this.ArrayHistorico));
+
+      //Avisa no console que foi salvo.
+      console.log(`Armazenamento concluído`);
+      console.log(this.ArrayHistorico);
+      this.getDados();
+
+      }
+    }else{
+    //Caso a localStorage não existe, então seria criado uma.
+    this.ArrayHistorico.push(this.objHistorico);
+    localStorage.setItem('historico', JSON.stringify(this.ArrayHistorico));
+
+    }
 
   }
 
   //Função para recuperar dados.
-  getDados(){
+   getDados():Observable<any>{
+    this.ArrayObj = JSON.parse(localStorage.getItem('historico') || '');
+    console.log(`Função de retorno do array`)
+    console.log(this.ArrayObj);
+    return of(this.ArrayObj);
 
+  }
 
-    //Pegar chaves do localStorage
-    let keys = Object.keys(localStorage);
-    console.log(`Chaves do local storage:${keys}`)
-    //Definindo variavel como tamanho da quantidade de itens da localStorage.
-    for(let i of keys){
+  //Verifica se a session storage existe.
+  verificaStorage(){
+    const item = (localStorage.getItem('historico')!==null);
 
-      if(localStorage.getItem(i)==null){
-        console.log(`Erro! Não há dados na variável: ${i}`);
+    if(item){
+      return true;
 
-      }else{
-        let item = JSON.parse(localStorage.getItem(i) || '');
-        this.ArrayObj.push(item);
-
-      }
+    }else{
+      return false;
 
     }
-
-    console.log(`Array de objetos sendo enviados:`)
-    console.log(this.ArrayObj);
-    return this.ArrayObj;
 
   }
 

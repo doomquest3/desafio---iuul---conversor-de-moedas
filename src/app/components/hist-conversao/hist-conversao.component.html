@@ -1,7 +1,7 @@
 <mat-list class="container" >
   <div mat-subheader class="title">Histórico de conversão</div>
 
-    <table class="tabela" matSort mat-table [dataSource]="listHistorico" class="mat-elevation-z8">
+    <table class="tabela" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <!-- Coluna da data de conversão -->
       <ng-container matColumnDef="data">
@@ -36,13 +36,13 @@
       <!-- Coluna da taxa do valor -->
       <ng-container matColumnDef="taxa">
         <th class="dados" mat-header-cell *matHeaderCellDef>Taxa</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.taxa}} </td>
+        <td class="dados" mat-cell *matCellDef="let item"> {{item.taxa | number: '1.0-3' }} </td>
       </ng-container>
 
       <!-- Coluna do resultado -->
       <ng-container matColumnDef="resultado">
         <th class="dados" mat-header-cell mat-sort-header *matHeaderCellDef>Resultado</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.resultado}} </td>
+        <td class="dados" mat-cell *matCellDef="let item"> {{item.resultado | number: '1.0-3' }} </td>
       </ng-container>
 
 

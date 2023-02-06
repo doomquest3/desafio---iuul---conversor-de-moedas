@@ -13,7 +13,10 @@ import { RegConvertService } from 'src/app/services/reg-convert.service';
 })
 export class HistConversaoComponent implements OnInit{
   //Armazenar variáveis
-  listHistorico: Array<historico>;
+  listHistorico: historico[]= [];
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild('paginator') paginator!: MatPaginator;
+  @ViewChild(MatSort) matSort!: MatSort;
 
   //Lista de colunas na tabela.
   displayedColumns: string[] = [
@@ -25,10 +28,8 @@ export class HistConversaoComponent implements OnInit{
                                 'taxa',
                                 'resultado'];
 
-  dataSource!: MatTableDataSource<any>;
 
-  @ViewChild('paginator') paginator!: MatPaginator;
-  @ViewChild(MatSort) matSort!: MatSort;
+
 
   constructor(
               private regHistorico: RegConvertService) {
@@ -36,17 +37,37 @@ export class HistConversaoComponent implements OnInit{
 
   }
 
-  ngOnInit(){
+  ngOnInit():void{
     this.recuperarDados();
 
   }
 
-
   //Método para recuperar dados do localStorage.
   recuperarDados(){
-    //Recuperando dados da localStorage.
-    this.listHistorico = this.regHistorico.getDados();
-    //console.log(`Valores recebidos`+this.listHistorico)
+    try {
+      //Recuperando dados da localStorage.
+      this.regHistorico.getDados().subscribe((resp)=>{
+        this.listHistorico = Object.values(resp);
+        //Verificar se recebemos a lista
+        console.log(`Lista recebida no typescript:`)
+        console.log(this.listHistorico);
+
+        //Armazenar lista como variavel da tabela.
+        this.dataSource = new MatTableDataSource(this.listHistorico);
+        //Aplicando propriedade para paginar a tela.
+        this.dataSource.paginator = this.paginator;
+        //Aplicando propriedade para alterar ordem de exibição.
+        this.dataSource.sort = this.matSort;
+
+      });
+
+
+    } catch (error) {
+      console.log(error);
+
+    }
+
+
 
   }
 
