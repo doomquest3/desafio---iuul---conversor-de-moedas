@@ -1,7 +1,7 @@
 <mat-list class="container" >
   <div mat-subheader class="title">Histórico de conversão</div>
 
-  <table class="tabela" matSort mat-table [dataSource]="this.listHistorico" class="mat-elevation-z8">
+  <table class="tabela" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- coluna do código das moedas -->
     <ng-container matColumnDef="date">

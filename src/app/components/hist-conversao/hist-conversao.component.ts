@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { RegConvertService } from 'src/app/services/reg-convert.service';
   templateUrl: './hist-conversao.component.html',
   styleUrls: ['./hist-conversao.component.css']
 })
-export class HistConversaoComponent implements OnInit{
+export class HistConversaoComponent implements OnInit, AfterViewInit{
   //Armazenar variáveis
   listHistorico: historico[]=[];
   invertListHistorico: historico[]=[];
@@ -21,11 +21,15 @@ export class HistConversaoComponent implements OnInit{
 
 
   dataSource!: MatTableDataSource<any>;
-  @ViewChild(MatSort, {static:true}) matSort!: MatSort;
+  @ViewChild(MatSort) matSort!: MatSort;
 
   constructor(
               private regHistorico: RegConvertService) {
 
+
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.matSort;
 
   }
 
@@ -40,14 +44,14 @@ export class HistConversaoComponent implements OnInit{
 
       this.regHistorico.getDados().subscribe((e)=>{
         this.listHistorico = e;
+        console.log(this.listHistorico);
+        console.log("Tipo da variavel:")
+        console.log(typeof(this.listHistorico))
+        this.dataSource = new MatTableDataSource(this.listHistorico);
+
       });
 
-      console.log(this.listHistorico);
-      console.log("Tipo da variavel:")
-      console.log(typeof(this.listHistorico))
-      this.dataSource = new MatTableDataSource(this.listHistorico);
 
-      this.dataSource.sort = new MatSort;
     } catch (error) {
       console.log(error);
 
