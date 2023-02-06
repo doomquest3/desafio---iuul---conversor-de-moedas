@@ -1,53 +1,47 @@
 <mat-list class="container" >
   <div mat-subheader class="title">Histórico de conversão</div>
 
-    <table class="tabela" matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table class="tabela" matSort mat-table [dataSource]="this.listHistorico" class="mat-elevation-z8">
 
-      <!-- Coluna da data de conversão -->
-      <ng-container matColumnDef="data">
-        <th class="dados" mat-header-cell *matHeaderCellDef>Data</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.date}} </td>
-      </ng-container>
+    <!-- coluna do código das moedas -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Data</th>
+      <td mat-cell *matCellDef="let item"> {{item.date}} </td>
+    </ng-container>
 
-      <!-- Coluna da hora de conversão -->
-      <ng-container matColumnDef="hora">
-        <th class="dados" mat-header-cell mat-sort-header *matHeaderCellDef>Hora</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.hora}} </td>
-      </ng-container>
+    <!-- descrição Column -->
+    <ng-container matColumnDef="hora">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Hora</th>
+      <td mat-cell *matCellDef="let item"> {{item.hora}} </td>
+    </ng-container>
 
-      <!-- Coluna do valor a ser convertido -->
-      <ng-container matColumnDef="valor">
-        <th class="dados" mat-header-cell *matHeaderCellDef>Valor</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.valorEntrada}} </td>
-      </ng-container>
+    <ng-container matColumnDef="valorEntrada">
+      <th mat-header-cell *matHeaderCellDef>Valor Entrada</th>
+      <td mat-cell *matCellDef="let item"> {{item.valorEntrada}}</td>
+    </ng-container>
 
-      <!-- Coluna da moeda original -->
-      <ng-container matColumnDef="moedaOrigem">
-        <th class="dados" mat-header-cell *matHeaderCellDef>Moeda original</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.moedaOrigem}} </td>
-      </ng-container>
+    <ng-container matColumnDef="moedaOrigem">
+      <th mat-header-cell *matHeaderCellDef>Moeda origem</th>
+      <td mat-cell *matCellDef="let item"> {{item.moedaOrigem}} </td>
+    </ng-container>
 
-      <!-- Coluna da moeda de destino -->
-      <ng-container matColumnDef="moedaDestino">
-        <th class="dados" mat-header-cell *matHeaderCellDef>Moeda de destino</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.moedaDestino}} </td>
-      </ng-container>
+    <ng-container matColumnDef="moedaDestino">
+      <th mat-header-cell *matHeaderCellDef>Moeda Destino</th>
+      <td mat-cell *matCellDef="let item"> {{item.moedaDestino}} </td>
+    </ng-container>
 
-      <!-- Coluna da taxa do valor -->
-      <ng-container matColumnDef="taxa">
-        <th class="dados" mat-header-cell *matHeaderCellDef>Taxa</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.taxa | number: '1.0-3' }} </td>
-      </ng-container>
+    <ng-container matColumnDef="taxa">
+      <th mat-header-cell *matHeaderCellDef>Taxa</th>
+      <td mat-cell *matCellDef="let item"> {{item.taxa | number: '0.0-3'}} </td>
+    </ng-container>
 
-      <!-- Coluna do resultado -->
-      <ng-container matColumnDef="resultado">
-        <th class="dados" mat-header-cell mat-sort-header *matHeaderCellDef>Resultado</th>
-        <td class="dados" mat-cell *matCellDef="let item"> {{item.resultado | number: '1.0-3' }} </td>
-      </ng-container>
+    <ng-container matColumnDef="resultado">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>Resultado</th>
+      <td mat-cell *matCellDef="let item"> {{item.resultado | number: '0.0-3'}} </td>
+    </ng-container>
 
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 
 </mat-list>

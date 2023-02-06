@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { historico } from 'src/app/models/historico.model';
 import { RegConvertService } from 'src/app/services/reg-convert.service';
 
@@ -13,61 +13,45 @@ import { RegConvertService } from 'src/app/services/reg-convert.service';
 })
 export class HistConversaoComponent implements OnInit{
   //Armazenar variáveis
-  listHistorico: historico[]= [];
-  dataSource!: MatTableDataSource<any>;
-  @ViewChild('paginator') paginator!: MatPaginator;
-  @ViewChild(MatSort) matSort!: MatSort;
+  listHistorico: historico[]=[];
+  invertListHistorico: historico[]=[];
 
   //Lista de colunas na tabela.
-  displayedColumns: string[] = [
-                                'data',
-                                'hora',
-                                'valor',
-                                'moedaOrigem',
-                                'moedaDestino',
-                                'taxa',
-                                'resultado'];
+  displayedColumns: string[] = ['date', 'hora', 'valorEntrada', 'moedaOrigem', 'moedaDestino', 'taxa', 'resultado'];
 
 
-
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatSort, {static:true}) matSort!: MatSort;
 
   constructor(
               private regHistorico: RegConvertService) {
-    this.listHistorico = [];
+
 
   }
 
   ngOnInit():void{
-    this.recuperarDados();
+    this.getDados();
 
   }
 
   //Método para recuperar dados do localStorage.
-  recuperarDados(){
+  getDados(){
     try {
-      //Recuperando dados da localStorage.
-      this.regHistorico.getDados().subscribe((resp)=>{
-        this.listHistorico = Object.values(resp);
-        //Verificar se recebemos a lista
-        console.log(`Lista recebida no typescript:`)
-        console.log(this.listHistorico);
 
-        //Armazenar lista como variavel da tabela.
-        this.dataSource = new MatTableDataSource(this.listHistorico);
-        //Aplicando propriedade para paginar a tela.
-        this.dataSource.paginator = this.paginator;
-        //Aplicando propriedade para alterar ordem de exibição.
-        this.dataSource.sort = this.matSort;
-
+      this.regHistorico.getDados().subscribe((e)=>{
+        this.listHistorico = e;
       });
 
+      console.log(this.listHistorico);
+      console.log("Tipo da variavel:")
+      console.log(typeof(this.listHistorico))
+      this.dataSource = new MatTableDataSource(this.listHistorico);
 
+      this.dataSource.sort = new MatSort;
     } catch (error) {
       console.log(error);
 
     }
-
-
 
   }
 

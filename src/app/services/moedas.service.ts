@@ -21,7 +21,7 @@ export class MoedasService {
 
   //método para requisitar moedas para listar as moedas
   public listarMoedas(): Observable<any>{
-     return this.http.get<listaMoedas>(this.apiUrl);
+    return this.http.get<listaMoedas>(this.apiUrl);
 
   }
 

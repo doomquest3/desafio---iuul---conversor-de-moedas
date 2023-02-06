@@ -89,29 +89,37 @@ export class ConverterMoedaComponent {
     let tagB = this.myGroup.value.code2;
 
     if(this.validar()){
-      //Valor da conversão.
-      this.valor = Number(this.myGroup.value.valor);
 
-      //Enviando requisição para service.
-      this.moedaService.converterMoedas(tagA,tagB).subscribe((response)=>{
-        //Data da conversão
-        this.data = (response.date)
+      if( tagA == '' || tagB ==''){
 
-        //Valor para conversão
-        this.conversor = Object.values(response.info)
+        alert(`Por favor preencha as tags ${tagA} e ${tagB}`);
 
-        //Valor enviado pela pessoa.
-        //console.log("quantidade da moeda"+(this.valor));
+      }else{
+        //Valor da conversão.
+        this.valor = Number(this.myGroup.value.valor);
 
-        //Valor da conversão
-        //console.log(`Você recebeu: ${this.conversor}`);
+        //Enviando requisição para service.
+        this.moedaService.converterMoedas(tagA,tagB).subscribe((response)=>{
+          //Data da conversão
+          this.data = (response.date)
 
-        this.resultado = this.valor * Number(this.conversor);
+          //Valor para conversão
+          this.conversor = Object.values(response.info)
 
-        //Enviar para armazenar valores no localStorage.
-        this.armazenar.setDados(this.valor, tagA, this.resultado, tagB, Number(this.conversor));
+          //Valor enviado pela pessoa.
+          //console.log("quantidade da moeda"+(this.valor));
 
-      });
+          //Valor da conversão
+          //console.log(`Você recebeu: ${this.conversor}`);
+
+          this.resultado = this.valor * Number(this.conversor);
+
+          //Enviar para armazenar valores no localStorage.
+          this.armazenar.setDados(this.valor, tagA, this.resultado, tagB, Number(this.conversor));
+
+        });
+      }
+
     }else{
       alert(`Por favor, refaça o envio do número.`);
 

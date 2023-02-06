@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { moedaDescribe } from 'src/app/models/moedaDescribe.model';
 import { MoedasService } from 'src/app/services/moedas.service';
+import { RegConvertService } from 'src/app/services/reg-convert.service';
 
 @Component({
   selector: 'app-lista-moedas',
@@ -21,7 +22,7 @@ export class ListaMoedasComponent implements OnInit {
 
 
   constructor(
-    private moedaService: MoedasService
+    private moedaService: MoedasService,
 
     ){
 
@@ -39,7 +40,10 @@ export class ListaMoedasComponent implements OnInit {
       this.moedaService.listarMoedas().subscribe((moedas)=>{
         //Converter formatação da lista para permitir amostragem de dados na tela.
         this.listaMoedas = Object.values(moedas.symbols);
+        console.log("lista de moedas:")
         console.log(this.listaMoedas)// <---Verificar se moedas está sendo pega na API.
+        console.log('tipo da variavel:')
+        console.log(typeof(this.listaMoedas))
         //Criação de dados para tabela e paginação.
         this.dataSource = new MatTableDataSource(this.listaMoedas);
         //Aplicando propriedade para paginar a tela.
