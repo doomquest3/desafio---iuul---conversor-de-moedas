@@ -6,7 +6,7 @@
 
 /*Container da lista*/
 .container{
-  width: 99%;
+  width: 100%;
   height: 85%;
 
   margin: 1rem auto;
@@ -48,9 +48,11 @@
 .tabela{
   overflow-x: scroll;
   text-align: center;
+
 }
 
 .dados{
   text-align: center;
+  align-items: center;
 
 }

@@ -16,17 +16,19 @@ import { ConverterMoedaComponent } from './components/converter-moeda/converter-
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { HttpClientModule } from '@angular/common/http';
 
+import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { HistConversaoComponent } from './components/hist-conversao/hist-conversao.component';
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { HistConversaoComponent } from './components/hist-conversao/hist-convers
     ListaMoedasComponent,
     ConverterMoedaComponent,
     HistConversaoComponent,
+    MessageComponent,
 
   ],
   imports: [
@@ -56,7 +59,8 @@ import { HistConversaoComponent } from './components/hist-conversao/hist-convers
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
 
   ],
   providers: [],

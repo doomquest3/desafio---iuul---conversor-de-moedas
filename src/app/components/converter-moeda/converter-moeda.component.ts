@@ -114,8 +114,10 @@ export class ConverterMoedaComponent {
 
           this.resultado = this.valor * Number(this.conversor);
 
+          let maiorMenor = this.VerifValorDolar(tagA)
+
           //Enviar para armazenar valores no localStorage.
-          this.armazenar.setDados(this.valor, tagA, this.resultado, tagB, Number(this.conversor));
+          this.armazenar.setDados(this.valor, tagA, this.resultado, tagB, Number(this.conversor), maiorMenor);
 
         });
       }
@@ -123,6 +125,32 @@ export class ConverterMoedaComponent {
     }else{
       alert(`Por favor, refaça o envio do número.`);
 
+    }
+
+  }
+
+
+
+  //Verificar se valor é maior que 10 mil dolares.
+  VerifValorDolar(tagA: string){
+    let resultVerif;
+    //Tag da moeda original.
+    this.moedaService.verificaValor(tagA).subscribe((resp)=>{
+      this.conversor = Object.values(resp.info);
+
+    });
+
+      resultVerif = this.valor + Number(this.conversor);
+      console.log(`Valor convertido de ${tagA} para USD`);
+      console.log(resultVerif);
+
+    if(resultVerif>= 10000){
+      //alert(`Verificar se valor e maior funcionou`);
+      return true;
+
+    }else{
+      //alert(`Verificar se valor e maior funcionou`);
+      return false
     }
 
   }

@@ -32,4 +32,11 @@ export class MoedasService {
 
   }
 
+  //Verificar se valor é maior que 10000 dolares.
+  verificaValor(tagA: string): Observable<any>{
+    console.log(`Foi recebido as tags ${tagA}`);
+    return this.http.get<converter>(`https://api.exchangerate.host/convert?from=${tagA}&to=USD`);
+
+  }
+
 }

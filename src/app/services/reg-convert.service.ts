@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, Observable, of } from 'rxjs';
+import { converter } from '../models/converter.model';
 import { historico } from '../models/historico.model';
 
 @Injectable({
@@ -25,31 +27,35 @@ export class RegConvertService {
             moedaOrigem: string,
             resultado: number,
             moedaDestino: string,
-            taxa: number
+            taxa: number,
+            maiorMenor: boolean
   ):void{
     //Verifica se existe a chave do localStorage;
     let cond = this.verificaStorage();
 
-    this.objHistorico.date = new Date().toLocaleDateString(
-      'pt-br',{
-      day:'numeric',
-      month:'numeric',
-      year:'numeric'});
+      this.objHistorico.date = new Date().toLocaleDateString(
+        'pt-br',{
+        day:'numeric',
+        month:'numeric',
+        year:'numeric'});
       this.objHistorico.hora = new Date().toLocaleTimeString(navigator.language,{
-            hour: '2-digit',
-            minute:'2-digit',
-            second:'2-digit'});
+        hour: '2-digit',
+        minute:'2-digit',
+        second:'2-digit'});
       this.objHistorico.valorEntrada = String(valorEntrada);
       this.objHistorico.moedaOrigem = moedaOrigem;
       this.objHistorico.moedaDestino = moedaDestino;
       this.objHistorico.resultado = String(resultado);
       this.objHistorico.taxa = String(taxa);
+      this.objHistorico.maiorDolar = maiorMenor;
 
     if(cond){
+
       //Recupera o Array salvo na chave histórico
       this.ArrayHistorico = JSON.parse(localStorage.getItem("historico") || '');
 
       if(this.ArrayHistorico.indexOf(this.objHistorico) == -1){
+        this.objHistorico.id = Number(this.ArrayHistorico.length);
         //Armazenar no localStorage.
         this.ArrayHistorico.push(this.objHistorico);
         localStorage.setItem('historico', JSON.stringify(this.ArrayHistorico));
@@ -61,6 +67,7 @@ export class RegConvertService {
 
       }
     }else{
+      this.objHistorico.id = 0;
       //Caso a localStorage não existe, então seria criado uma.
       this.ArrayHistorico.push(this.objHistorico);
       localStorage.setItem('historico', JSON.stringify(this.ArrayHistorico));
@@ -98,6 +105,17 @@ export class RegConvertService {
       return false;
 
     }
+
+  }
+
+  //Excluir linha do histórico.
+  excluirCelula(index: number){
+    this.ArrayHistorico = JSON.parse(localStorage.getItem("historico") || '');
+    const novaLista = this.ArrayHistorico.findIndex((obj)=> obj.id === index);
+    this.ArrayHistorico.splice(novaLista, 1);
+
+    localStorage.setItem('historico', JSON.stringify(this.ArrayHistorico));
+    alert(`Item deletado com sucesso!`)
 
   }
 
