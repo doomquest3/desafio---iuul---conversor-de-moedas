@@ -5,7 +5,7 @@ import { HistConversaoComponent } from './components/hist-conversao/hist-convers
 import { ListaMoedasComponent } from './components/lista-moedas/lista-moedas.component';
 import { PagPrincipalComponent } from './components/pag-principal/pag-principal.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {path:'', component: PagPrincipalComponent},
   {path:'list', component: ListaMoedasComponent},
   {path:'convert', component: ConverterMoedaComponent},

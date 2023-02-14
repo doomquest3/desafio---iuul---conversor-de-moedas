@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,12 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { HistConversaoComponent } from './components/hist-conversao/hist-conversao.component';
 import { MessageComponent } from './components/message/message.component';
@@ -40,30 +40,38 @@ import { MessageComponent } from './components/message/message.component';
     HistConversaoComponent,
     MessageComponent,
 
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule,
+    HttpClientModule,
     MatListModule,
     MatMenuModule,
     MatInputModule,
+    MatIconModule,
     MatPaginatorModule,
-    HttpClientModule,
     MatTableModule,
     MatSortModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule,
-    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+
 
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  exports:[
+    NavBarComponent,
+
+  ],
+  providers: [MatDialogRef, MatTableDataSource],
+  bootstrap: [AppComponent],
+  entryComponents:[HistConversaoComponent]
+
 })
 export class AppModule { }

@@ -1,15 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        MatIconModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavBarComponent
       ],
     }).compileComponents();
   });
@@ -20,16 +24,9 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'conversor-moedas'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('conversor-moedas');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('conversor-moedas app is running!');
-  });
+  it('deve ter a nav bar', ()=>{
+    const navBar = TestBed.createComponent(NavBarComponent);
+    const app = navBar.componentInstance;
+    expect(app).toBeTruthy();
+  })
 });

@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { RegConvertService } from 'src/app/services/reg-convert.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
+import { Dialog } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-message',
@@ -14,7 +15,7 @@ export class MessageComponent implements OnInit{
   constructor(
               public dialogRef: MatDialogRef<MessageComponent>,
               private regHistorico: RegConvertService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: Dialog | any) {
 
   }
   ngOnInit(): void {
